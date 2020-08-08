@@ -16,12 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -34,6 +31,8 @@ import java.util.stream.Collectors;
 public class LicitacaoController {
 
     LicitacaoJpaRepository repository;
+
+    private static final String NAO_ENCONTRADO = "Nenhuma licita\u00e7\u00e3o localizada";
 
     @Autowired
     public LicitacaoController(LicitacaoJpaRepository repository) {
@@ -55,19 +54,19 @@ public class LicitacaoController {
     public ListingDTO consultar(@PathVariable("id") Long id) {
         return new ListingDTO(
                 repository.findById(id).orElseThrow(() ->
-                new FuntimeException("Nenhuma licitação localizada", HttpStatus.NOT_FOUND)));
+                new FuntimeException(NAO_ENCONTRADO, HttpStatus.NOT_FOUND)));
     }
 
     @GetMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultPage<ListingDTO> consultar(@PathVariable(value = "from")
+    public ResultPage<ListingDTO> consultar(@RequestParam(value = "from")
                                             @DateTimeFormat(pattern = "ddMMyyyy") Date from,
-                                            @PathVariable(value = "to")
+                                            @RequestParam(value = "to")
                                             @DateTimeFormat(pattern = "ddMMyyyy") Date to,
-                                            @PathVariable(value = "page") int page,
-                                            @PathVariable(value = "size") int size) {
+                                            @RequestParam(value = "page",defaultValue = "0") int page,
+                                            @RequestParam(value = "size", defaultValue = "0") int size) {
         Page<Licitacao> licitacoes = repository.consultarPorDatas(from,to, PageRequest.of(page,size));
         if (!licitacoes.hasContent()) {
-            throw new FuntimeException("Nenhuma licitação localizada", HttpStatus.NOT_FOUND);
+            throw new FuntimeException(NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
         }
         return new ResultPage<>(
                 licitacoes.getContent()
