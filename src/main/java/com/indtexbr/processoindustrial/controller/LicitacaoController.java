@@ -63,7 +63,7 @@ public class LicitacaoController {
                                             @RequestParam(value = "to")
                                             @DateTimeFormat(pattern = "ddMMyyyy") Date to,
                                             @RequestParam(value = "page",defaultValue = "0") int page,
-                                            @RequestParam(value = "size", defaultValue = "0") int size) {
+                                            @RequestParam(value = "size", defaultValue = "10") int size) {
         Page<Licitacao> licitacoes = repository.consultarPorDatas(from,to, PageRequest.of(page,size));
         if (!licitacoes.hasContent()) {
             throw new FuntimeException(NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
