@@ -28,12 +28,4 @@ public class CORSInterceptor extends HandlerInterceptorAdapter {
 
          return true;
 	}
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        super.afterCompletion(request, response, handler, ex);
-        if (request.getMethod().equals("OPTIONS")) {
-            response.setStatus(200);
-        }
-    }
 }

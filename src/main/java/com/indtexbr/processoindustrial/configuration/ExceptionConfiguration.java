@@ -17,14 +17,14 @@ public class ExceptionConfiguration {
     @ExceptionHandler(FuntimeException.class)
     public ResponseEntity<String> funtimeException(FuntimeException fe) {
         return ResponseEntity
-                .status(fe.getStatus())
+                .status(HttpStatus.IM_USED)
                 .body(fe.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> exception(Exception e) {
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.IM_USED)
                 .body(e.getClass().getSimpleName() + ": " + e.getMessage() != null ? e.getMessage(): "N/A");
     }
 }
