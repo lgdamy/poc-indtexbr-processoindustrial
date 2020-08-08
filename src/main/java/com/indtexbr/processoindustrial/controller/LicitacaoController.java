@@ -18,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URI;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -41,13 +44,9 @@ public class LicitacaoController {
 
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ResponseEntity<Long> gerarNova(@RequestBody @Valid ListingDTO listing, HttpRequest request) {
+    public ResponseEntity<Long> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
         Long id = repository.save(new Licitacao(listing)).getNumero();
-        return ResponseEntity.created(
-                UriComponentsBuilder.fromHttpRequest(request)
-                        .pathSegment("api","listing","v1",""+id)
-                        .build().toUri()
-        ).body(id);
+        return ResponseEntity.created(URI.create("www.redtube.com")).body(id);
     }
 
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
