@@ -26,6 +26,6 @@ public class CORSInterceptor extends HandlerInterceptorAdapter {
         response.setHeader("Access-Control-Expose-Headers", stringBuilder.toString());
         response.setHeader("Access-Control-Allow-Credentials", "false");
 
-         return true;
+        return false;
 	}
 }

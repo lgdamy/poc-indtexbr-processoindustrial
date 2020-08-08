@@ -16,7 +16,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Result {
-    private String message = "SUCESSO";
-    private boolean fail = false;
+public final class ResultError {
+    private String message;
+    private String exception;
 }

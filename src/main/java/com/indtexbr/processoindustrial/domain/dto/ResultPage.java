@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResultPage<T> extends Result {
+public class ResultPage<T> {
     private List<T> content;
     private long totalElements;
     private int page;

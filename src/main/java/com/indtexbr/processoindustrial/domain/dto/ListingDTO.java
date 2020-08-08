@@ -11,7 +11,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * @author lgdamy@raiadrogasil.com on 07/08/2020
@@ -22,7 +21,7 @@ import java.util.TimeZone;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ListingDTO extends Result {
+public class ListingDTO {
     private Long id;
     @NotNull
     private String category;

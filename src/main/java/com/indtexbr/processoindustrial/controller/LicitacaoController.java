@@ -1,7 +1,7 @@
 package com.indtexbr.processoindustrial.controller;
 
 import com.indtexbr.processoindustrial.domain.dto.ListingDTO;
-import com.indtexbr.processoindustrial.domain.dto.Result;
+import com.indtexbr.processoindustrial.domain.dto.ResultError;
 import com.indtexbr.processoindustrial.domain.dto.ResultPage;
 import com.indtexbr.processoindustrial.domain.model.Licitacao;
 import com.indtexbr.processoindustrial.exception.FuntimeException;
@@ -11,18 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.net.URI;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -45,13 +41,14 @@ public class LicitacaoController {
 
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ResponseEntity<Result> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
+    public ResponseEntity<Long> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
         Long id = repository.save(new Licitacao(listing)).getNumero();
-        return ResponseEntity.ok(new Result(id.toString(), false));
+        return ResponseEntity.ok(id);
     }
 
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ListingDTO consultar(@PathVariable("id") Long id) {
+        log.info("consultou o id {}", id);
         return new ListingDTO(
                 repository.findById(id).orElseThrow(() ->
                 new FuntimeException(NAO_ENCONTRADO, HttpStatus.NOT_FOUND)));
@@ -75,5 +72,4 @@ public class LicitacaoController {
                 licitacoes.getPageable(),
                 licitacoes.getTotalElements());
     }
-
 }
