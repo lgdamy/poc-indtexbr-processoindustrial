@@ -46,7 +46,7 @@ public class LicitacaoController {
     @Transactional
     public ResponseEntity<Long> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
         Long id = repository.save(new Licitacao(listing)).getNumero();
-        return ResponseEntity.created(URI.create("www.redtube.com")).body(id);
+        return ResponseEntity.ok(id);
     }
 
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
