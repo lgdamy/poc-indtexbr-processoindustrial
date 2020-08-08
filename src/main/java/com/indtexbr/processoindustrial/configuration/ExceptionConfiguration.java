@@ -1,9 +1,7 @@
 package com.indtexbr.processoindustrial.configuration;
 
+import com.indtexbr.processoindustrial.domain.dto.Result;
 import com.indtexbr.processoindustrial.exception.FuntimeException;
-import org.springframework.core.NestedCheckedException;
-import org.springframework.core.NestedRuntimeException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,16 +13,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionConfiguration {
 
     @ExceptionHandler(FuntimeException.class)
-    public ResponseEntity<String> funtimeException(FuntimeException fe) {
+    public ResponseEntity<Result> funtimeException(FuntimeException fe) {
         return ResponseEntity
-                .status(fe.getStatus())
-                .body(fe.getMessage());
+                .ok()
+                .body(new Result(fe.getMessage(), true));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> exception(Exception e) {
+    public ResponseEntity<Result> exception(Exception e) {
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(e.getClass().getSimpleName() + ": " + e.getMessage() != null ? e.getMessage(): "N/A");
+                .ok()
+                .body(new Result(e.getClass().getSimpleName() + ": " + e.getMessage() != null ? e.getMessage(): "N/A", true ));
     }
 }

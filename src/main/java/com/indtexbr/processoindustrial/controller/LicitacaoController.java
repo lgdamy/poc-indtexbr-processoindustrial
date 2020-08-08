@@ -1,6 +1,7 @@
 package com.indtexbr.processoindustrial.controller;
 
 import com.indtexbr.processoindustrial.domain.dto.ListingDTO;
+import com.indtexbr.processoindustrial.domain.dto.Result;
 import com.indtexbr.processoindustrial.domain.dto.ResultPage;
 import com.indtexbr.processoindustrial.domain.model.Licitacao;
 import com.indtexbr.processoindustrial.exception.FuntimeException;
@@ -44,9 +45,9 @@ public class LicitacaoController {
 
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ResponseEntity<Long> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
+    public ResponseEntity<Result> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
         Long id = repository.save(new Licitacao(listing)).getNumero();
-        return ResponseEntity.ok(id);
+        return ResponseEntity.ok(new Result(id.toString(), false));
     }
 
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

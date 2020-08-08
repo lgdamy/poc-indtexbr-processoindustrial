@@ -22,7 +22,7 @@ import java.util.TimeZone;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ListingDTO {
+public class ListingDTO extends Result {
     private Long id;
     @NotNull
     private String category;
