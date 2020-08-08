@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -23,12 +24,17 @@ import java.util.TimeZone;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ListingDTO {
     private Long id;
+    @NotNull
     private String category;
+    @NotNull
     private String group;
+    @NotNull
     private String color;
+    @NotNull
     private String quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY", timezone = "GMT-3")
     private Date createdAt;
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY", timezone = "GMT-3")
     private Date dueTo;
 
