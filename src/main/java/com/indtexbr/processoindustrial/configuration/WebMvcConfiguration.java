@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author lgdamy@raiadrogasil.com on 08/08/2020
  */
-@Configuration
+//@Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
