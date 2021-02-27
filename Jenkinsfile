@@ -31,5 +31,13 @@ pipeline {
       }
     }
 
+    stage('qa-test') {
+      steps {
+        sh 'echo Iniciando os testes'
+        sh 'sleep 3'
+        sh 'echo Finalizando os testes com sucesso !!!'
+      }
+    }
+
   }
 }
