@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lgdamy@raiadrogasil.com on 07/08/2020
@@ -39,6 +40,9 @@ public class Licitacao implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataLimite;
 
+    @OneToMany(mappedBy = "licitacao")
+    private List<Orcamento> orcamentos;
+
     public Licitacao(ListingDTO dto) {
         super();
         this.categoria = dto.getCategory();
@@ -47,5 +51,11 @@ public class Licitacao implements Serializable {
         this.quantidade = dto.getQuantity();
         this.criacao = new Date();
         this.dataLimite = dto.getDueTo();
+    }
+
+    public Licitacao(Long numero) {
+        super();
+        this.numero = numero;
+        return;
     }
 }

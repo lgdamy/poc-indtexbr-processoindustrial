@@ -6,6 +6,7 @@ import com.indtexbr.processoindustrial.domain.model.Licitacao;
 import com.indtexbr.processoindustrial.exception.FuntimeException;
 import com.indtexbr.processoindustrial.repository.LicitacaoJpaRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,19 +36,24 @@ import java.util.stream.Collectors;
 @RequestMapping("/listings/v1")
 public class LicitacaoController {
 
-    LicitacaoJpaRepository repository;
+    private final LicitacaoJpaRepository repository;
+
+    private final RabbitTemplate criaLicitacaoTemplate;
 
     private static final String NAO_ENCONTRADO = "Nenhuma licita\u00e7\u00e3o localizada";
 
     @Autowired
-    public LicitacaoController(LicitacaoJpaRepository repository) {
+    public LicitacaoController(LicitacaoJpaRepository repository, RabbitTemplate criaLicitacaoTemplate) {
         this.repository = repository;
+        this.criaLicitacaoTemplate = criaLicitacaoTemplate;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<Long> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
         Long id = repository.save(new Licitacao(listing)).getNumero();
+        listing.setId(id);
+        criaLicitacaoTemplate.convertAndSend(listing);
         return ResponseEntity.ok(id);
     }
 

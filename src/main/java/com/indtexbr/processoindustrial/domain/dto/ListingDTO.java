@@ -31,11 +31,13 @@ public class ListingDTO {
     private String color;
     @NotNull
     private String quantity;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY", timezone = "GMT-3")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private Date createdAt;
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/YYYY", timezone = "GMT-3")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     private Date dueTo;
+
+    private Integer proposals;
 
     public ListingDTO(Licitacao lic) {
         super();
@@ -46,5 +48,6 @@ public class ListingDTO {
         this.quantity = lic.getQuantidade();
         this.createdAt = lic.getCriacao();
         this.dueTo = lic.getDataLimite();
+        this.proposals = lic.getOrcamentos().size();
     }
 }
