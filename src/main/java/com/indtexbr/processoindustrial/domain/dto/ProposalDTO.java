@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.indtexbr.processoindustrial.domain.model.Licitacao;
 import com.indtexbr.processoindustrial.domain.model.Orcamento;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,28 +26,36 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProposalDTO {
 
+    @ApiModelProperty(example = "199", required = true)
     private Long id;
 
     @NotNull
+    @ApiModelProperty(example = "10")
     private Long listing;
 
     @NotNull
+    @ApiModelProperty(example = "Tecidos Maia")
     private String company;
 
     @NotNull
+    @ApiModelProperty(example = "30.281.367/0001-91")
     private String companyDocument;
 
     @NotNull
     @Digits(integer = 10, fraction = 2)
+    @ApiModelProperty(example = "889912.99", notes = "R$")
     private BigDecimal price;
 
     @NotNull
+    @ApiModelProperty(example = "12")
     private Integer productionTime;
 
+    @ApiModelProperty(example = "5")
     @NotNull
     private Integer shippingTime;
 
     @NotNull
+    @ApiModelProperty(example = "https://tecidofeito.com/assets/documento.pdf")
     private String proposalLink;
 
     public ProposalDTO(Orcamento o) {

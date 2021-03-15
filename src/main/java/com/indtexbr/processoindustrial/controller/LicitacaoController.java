@@ -5,6 +5,8 @@ import com.indtexbr.processoindustrial.domain.dto.ResultPage;
 import com.indtexbr.processoindustrial.domain.model.Licitacao;
 import com.indtexbr.processoindustrial.exception.FuntimeException;
 import com.indtexbr.processoindustrial.repository.LicitacaoJpaRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
+@Api(tags = "Licitacao")
 @RequestMapping("/listings/v1")
 public class LicitacaoController {
 
@@ -48,6 +51,7 @@ public class LicitacaoController {
         this.criaLicitacaoTemplate = criaLicitacaoTemplate;
     }
 
+    @ApiOperation("Gera uma licita\u00e7\u00e3o nova")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<Long> gerarNova(@RequestBody @Valid @NotNull ListingDTO listing) {
@@ -57,6 +61,7 @@ public class LicitacaoController {
         return ResponseEntity.ok(id);
     }
 
+    @ApiOperation(value = "Consulta os detalhes de uma licita\u00e7\u00e3o pelo identificador")
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ListingDTO consultar(@PathVariable("id") Long id) {
         log.info("consultou o id {}", id);
@@ -65,6 +70,7 @@ public class LicitacaoController {
                 new FuntimeException(NAO_ENCONTRADO, HttpStatus.NOT_FOUND)));
     }
 
+    @ApiOperation(value = "Consulta uma lista de or\u00e7amentos pela data de cria\u00e7\u00e3o ou data limite, a resposta \u00e9 paginada")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultPage<ListingDTO> consultar(@RequestParam(value = "from")
                                             @DateTimeFormat(pattern = "ddMMyyyy") Date from,

@@ -1,6 +1,7 @@
 package com.indtexbr.processoindustrial.domain.model;
 
 import com.indtexbr.processoindustrial.domain.dto.ProposalDTO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,21 +25,28 @@ public class Orcamento {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(example = "10")
     private Long id;
 
+    @ApiModelProperty(example = "Tecidos Carlinhos")
     private String empresa;
 
+    @ApiModelProperty(example = "30.281.267/0002-91")
     private String cnpj;
 
     @ManyToOne
     private Licitacao licitacao;
 
+    @ApiModelProperty(example = "2000.12")
     private BigDecimal valor;
 
+    @ApiModelProperty(example = "10")
     private Integer diasProducao;
 
+    @ApiModelProperty(example = "30")
     private Integer diasEntrega;
 
+    @ApiModelProperty(example = "https://tecidofeito.com/assets/documento.pdf")
     private String urlDocumento;
 
     public Orcamento(ProposalDTO proposal) {

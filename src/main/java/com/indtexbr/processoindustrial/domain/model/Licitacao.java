@@ -1,6 +1,7 @@
 package com.indtexbr.processoindustrial.domain.model;
 
 import com.indtexbr.processoindustrial.domain.dto.ListingDTO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
