@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "Orcamento")
+@Api(tags = "Or\u00e7amento")
 @RequestMapping("/proposals/v1")
 public class OrcamentoController {
 

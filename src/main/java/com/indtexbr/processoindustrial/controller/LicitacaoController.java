@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
-@Api(tags = "Licitacao")
+@Api(tags = "Licita\u00e7\u00e3o")
 @RequestMapping("/listings/v1")
 public class LicitacaoController {
 

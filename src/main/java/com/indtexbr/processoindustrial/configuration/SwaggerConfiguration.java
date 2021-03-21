@@ -5,16 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.GrantType;
-import springfox.documentation.service.ResourceOwnerPasswordCredentialsGrant;
 import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.service.Tag;
 import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
@@ -37,10 +33,10 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfo("Processo Industrial", "Microsservi\u00e7o utilit\u00e1rio para configura\u00e7\u00e3o do m\u00f3dulo de processo industrial", "1.0", "urn:tos",
-                        new Contact("Adamastor Tenório","","adamastor@indtexbr.com.br"), "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<VendorExtension>()))
-                .tags(new Tag("Licitacao", "Acesso \u00e0s licita\u00e7\u00f5es"),
-                        new Tag("Orcamento", "Acesso aos Or\u00e7amentos relacionados \u00e0s licita\u00e7\u00f5es"))
+                .apiInfo(new ApiInfo("Gest\u00e3o de Processo Industrial", "Microsservi\u00e7o utilit\u00e1rio para configura\u00e7\u00e3o do m\u00f3dulo de processo industrial", "1.0", "urn:tos",
+                        new Contact("Adamastor Ten\u00f3rio","","adamastor@indtexbr.com.br"), "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<VendorExtension>()))
+                .tags(new Tag("Licita\u00e7\u00e3o", "Acesso \u00e0s licita\u00e7\u00f5es"),
+                        new Tag("Or\u00e7amento", "Acesso aos Or\u00e7amentos relacionados \u00e0s licita\u00e7\u00f5es"))
                 .consumes(Set.of(MediaType.APPLICATION_JSON_VALUE))
                 .produces(Set.of(MediaType.APPLICATION_JSON_VALUE))
                 .select()
